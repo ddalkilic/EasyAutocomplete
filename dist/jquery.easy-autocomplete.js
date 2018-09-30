@@ -59,6 +59,7 @@ var EasyAutocomplete = (function(scope){
 				match: {
 					enabled: false,
 					caseSensitive: false,
+					localeLang : 'en-US',
 					method: function(element, phrase) {
 
 						if (element.search(phrase) > -1) {
@@ -645,10 +646,9 @@ var EasyAutocomplete = (function(scope) {
 			if (!config.get("list").match.caseSensitive) {
 
 				if (typeof value === "string") {
-					value = value.toLowerCase();	
+					value = value.toLocaleLowerCase(config.get("list").match.localeLang);	
 				}
-				
-				phrase = phrase.toLowerCase();
+				phrase = phrase.toLocaleLowerCase(config.get("list").match.localeLang);
 			}
 			if (config.get("list").match.method(value, phrase)) {
 				return true;
@@ -1106,6 +1106,7 @@ var EasyAutocomplete = (function(scope) {
 								.detach();
 
 							elementsList = [];
+							
 							var counter = 0;
 							for(var builderIndex = 0, listBuildersLength = listBuilders.length; builderIndex < listBuildersLength; builderIndex += 1) {
 
